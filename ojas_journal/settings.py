@@ -8,9 +8,9 @@ load_dotenv()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# SECRET_KEY = os.environ.get("SECRETKEY")
+SECRET_KEY = os.environ.get("SECRETKEY")
 
-SECRET_KEY = 'django-insecure-#d)6*pn6e6uza+d1#a2p1zxxu*+a5g^8ya^bb16_d%bp-2drs*'
+# SECRET_KEY = 'django-insecure-#d)6*pn6e6uza+d1#a2p1zxxu*+a5g^8ya^bb16_d%bp-2drs*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -83,6 +83,20 @@ DATABASES = {
         }
     }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'journalapp',
+#         'USER': 'root',
+#         'PASSWORD': 'root',
+#         'HOST': 'https://127.0.0.1:8000/',
+#         #'https://django-journal-app.heroku.com',
+#         'PORT': '5432',
+#         # 'OPTIONS': {
+#         #     'sslmode': 'require'
+#         }
+#     }
+# }
 
 EMAIL_BACKEND=os.environ.get("EMAIL_BACKEND")
 EMAIL_USE_TLS=os.environ.get("EMAIL_USE_TLS")
