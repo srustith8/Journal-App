@@ -8,8 +8,9 @@ load_dotenv()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-SECRET_KEY = os.environ.get("SECRETKEY")
+# SECRET_KEY = os.environ.get("SECRETKEY")
 
+SECRET_KEY = 'django-insecure-#d)6*pn6e6uza+d1#a2p1zxxu*+a5g^8ya^bb16_d%bp-2drs*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -157,5 +158,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False
- 
+
+
+prod_db  =  dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(prod_db)
 django_heroku.settings(locals())
