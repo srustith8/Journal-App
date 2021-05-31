@@ -144,3 +144,5 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# not needed if you're using Postgres locally
+gettingstarted/static/

@@ -1,1 +1,2 @@
-web: gunicorn ojas_journal.wsgi --log-file -
+release: python3 manage.py migrate
+web: gunicorn ojas_journal.wsgi --preload --log-file -
