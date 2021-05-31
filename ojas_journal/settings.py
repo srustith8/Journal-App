@@ -76,27 +76,26 @@ WSGI_APPLICATION = 'ojas_journal.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'ciba',
-        }
-    }
-
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'journalapp',
-#         'USER': 'root',
-#         'PASSWORD': 'root',
-#         'HOST': 'https://127.0.0.1:8000/',
-#         #'https://django-journal-app.heroku.com',
-#         'PORT': '5432',
-#         # 'OPTIONS': {
-#         #     'sslmode': 'require'
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql',
+#             'NAME': 'ciba',
 #         }
 #     }
-# }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get("Database"),
+        'USER': os.environ.get("User"),
+        'PASSWORD': os.environ.get("Password"),
+        'HOST':os.environ.get("Host"),
+        'PORT': os.environ.get("Port"),
+        # 'OPTIONS': {
+        #     'sslmode': 'require'
+        # }
+    }
+}
 
 EMAIL_BACKEND=os.environ.get("EMAIL_BACKEND")
 EMAIL_USE_TLS=os.environ.get("EMAIL_USE_TLS")
@@ -110,10 +109,10 @@ EMAIL_PORT=os.environ.get("EMAIL_PORT")
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': os.environ.get("DB_NAME")
-#         'USER': 'root',os.environ.get("DB_USER")
-#         'PASSWORD': 'root',os.environ.get("DB_PASSWORD")
-#         'HOST': 'localhost',os.environ.get("DB_HOST")
-#         'PORT': '3306',os.environ.get("DB_SECRETKEY")
+#         'USER': os.environ.get("DB_USER")
+#         'PASSWORD': os.environ.get("DB_PASSWORD")
+#         'HOST': os.environ.get("DB_HOST")
+#         'PORT': os.environ.get("DB_SECRETKEY")
 # }
 # }
 
