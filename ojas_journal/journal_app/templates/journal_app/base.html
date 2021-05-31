@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'journal_app/main.css' %}">
+    {% if title %}
+    <title>Ojas Journal - {{ title }}</title>
+    {% else %}
+    <title>Ojas Journal</title>
+    {% endif %}
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand mr-4" href="{% url 'journal_app-home' %}">Ojas Journal</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarToggle">
+                    <div class="navbar-nav mr-auto">
+                        <form action="{% url 'search_articles' %}" methods="get">
+                            {% csrf_token %}
+                            <div class="col-auto">
+                                <input type="text" name="search" id='search' />
+                                <button class="btn btn-lg btn-success btn-sm" type="submit">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Navbar Right Side -->
+                    <div class="navbar-nav">
+                        {% if user.is_authenticated %}
+                        <!--  <a class="nav-item nav-link" href="{% url 'journal_app-home' %}">Home</a> -->
+                        <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
+                        <a class="nav-item nav-link" href="{% url 'contactus' %}">Contact Us</a>
+                        <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>&nbsp;&nbsp&nbsp;&nbsp
+                        <a class="nav-item nav-link bg-danger btn-sm" href="{% url 'logout' %}">Logout</a>
+                        {% else %}
+                        <a class="nav-item nav-link bg-success btn-sm" href="{% url 'login' %}">Login</a>&nbsp;&nbsp;
+                        <a class="nav-item nav-link bg-primary btn-sm" href="{% url 'register' %}">Register</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% block content %}{% endblock %}
+                <!-- </div>
+        <div class="col-md-4">
+          <div class="content-section">
+            <h3>Our Sidebar</h3>
+            <p class='text-muted'>You can put any information here you'd like.
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-light">Latest Posts</li>
+                <li class="list-group-item list-group-item-light">Announcements</li>
+                <li class="list-group-item list-group-item-light">Calendars</li>
+                <li class="list-group-item list-group-item-light">etc</li>
+              </ul>
+            </p>
+          </div>
+        </div>
+      </div> -->
+    </main>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+<!-- Footer -->
+<footer class="page-footer font-small bg-dark"><br>
+    <!-- Footer Links -->
+    <div class="container text-center text-md-left mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                <!-- Content -->
+                <h6 class="text-uppercase font-weight-bold text-primary">Ojas Innovative</h6>
+                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                <p class="text-primary">We run a business which cares for both product and client. We have our own Techies who can deliver fast service.</p>
+            </div>
+            <!-- Grid column -->
+            <!-- Grid column -->
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                <!-- Links -->
+                <h6 class="text-uppercase text-white font-weight-bold">Products</h6>
+                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                <p>
+                    <a href="#!">Software Development</a>
+                </p>
+                <p>
+                    <a href="#!">Staff Augmentation</a>
+                </p>
+                <p>
+                    <a href="#!">Delivery</a>
+                </p>
+                <p>
+                    <a href="#!">Software Maintenance</a>
+                </p>
+            </div>
+            <!-- Grid column -->
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                <!-- Links -->
+                <h6 class="text-uppercase text-white font-weight-bold">Useful links</h6>
+                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                <p>
+                    <a href="#!">Your Account</a>
+                </p>
+                <p>
+                    <a href="#!">Become an Affiliate</a>
+                </p>
+                <p>
+                    <a href="#!">Shipping Rates</a>
+                </p>
+                <p>
+                    <a href="#!">Help</a>
+                </p>
+            </div>
+            <!-- Grid column -->
+            <!-- Grid column -->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                <!-- Links -->
+                <h6 class="text-uppercase text-white font-weight-bold">Contact</h6>
+                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                <p class="text-primary">
+                    <i class="fas fa-home mr-3 "></i> MJR Mag, Hyderabad</p>
+                <p class="text-primary">
+                    <i class="fas fa-envelope mr-3"></i> info@ojas-it.com</p>
+                <p class="text-primary">
+                    <i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+                <p class="text-primary">
+                    <i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+            </div>
+            <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+    </div>
+    <!-- Footer Links -->
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2021 Copyright:
+        <a href="https://ojas-it.com/"> OjasJournalApp.com</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+</html>

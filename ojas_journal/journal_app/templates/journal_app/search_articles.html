@@ -1,0 +1,52 @@
+{% extends 'journal_app/base.html' %}
+{% block content %}
+{% if post %}
+<centre>
+    <h1>search results found</h1>
+</centre>
+<br>
+{% for post in post %}
+<article class="media content-section">
+    <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+            <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+        </div>
+        <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+        <p class="article-content">{{ post.content|safe|truncatewords:50 }}</p>
+        <div class="my-2">
+            {% if post.content|length > 100 %}
+            <a href="{% url 'post-detail' post.id %}" role="button" class="btn btn-primary">{{ posts.title }} continue
+              reading</a>
+            {% endif %}
+        </div>
+    </div>
+</article>
+{% endfor %}
+<!-- {% for posts in post %}
+<div class="container my-3">
+    <h2></h2>search results</h2>
+<div class = "row ro-guttters border rounded-circle overflow-hidden flex-md-row my-4 shadow-sm h-md-250 position-relative">
+    <div class="col p-4 d-flex flex-column position-static">
+        <strong class = "d-inline-block mb-2 text-primary">Article by {{ posts.author }}</strong>
+        <h3 class = "mb-0">{{ posts.title }}</h3>
+        <div class ="mb-1 text-muted">{{ posts.date_posted }}</div>
+        <p class = "card-text mb-auto">{{ posts.content | truncatechars:500 | safe}}</p>
+<div class = "my-2">
+<a href ='/journal_app-home/{{ posts.slug }}' role = "button" class ="btn btn-primary">{{ posts.title }} continue reading</a>
+</div>
+</div class = "col-auto d-none d-lg-block">
+</div>
+</div>
+{% endfor %} -->
+{% elif post is None %}
+<centre>
+    <h1>please write something to search</h1>
+</centre>
+{% else %}
+<centre>
+    <h1>search results not found </h1>
+</centre>
+{% endif %}
+{% endblock %}
