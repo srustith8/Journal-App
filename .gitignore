@@ -11,7 +11,7 @@ __pycache__/
 venv/
 env/
 
-*.sqlite3
+
 .idea/
 build/
 develop-eggs/
