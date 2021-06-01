@@ -1,1 +1,0 @@
-web: gunicorn ojas_journal.wsgi --log-file -
