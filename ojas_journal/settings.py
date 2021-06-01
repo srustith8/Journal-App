@@ -1,7 +1,7 @@
 import os
 import dj_database_url
 import django_heroku
-
+from decouple import config
 import environ
 
 from os.path import join, dirname
@@ -10,17 +10,14 @@ load_dotenv()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False)
-)
+
 
 SECRET_KEY='django-insecure-#d)6*pn6e6uza+d1#a2p1zxxu*+a5g^8ya^bb16_d%bp-2drs*'
 
-# SECRET_KEY = os.environ.get("SECRETKEY")
+
 # SECRET_KEY = os.environ.get("SECRETKEY")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['.herokuapp.com']
 
@@ -90,19 +87,19 @@ WSGI_APPLICATION = 'ojas_journal.wsgi.application'
 #         }
 #     }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get("Database"),
-        'USER': os.environ.get("User"),
-        'PASSWORD': os.environ.get("Password"),
-        'HOST':os.environ.get("Host"),
-        'PORT': os.environ.get("Port"),
-        # 'OPTIONS': {
-        #     'sslmode': 'require'
-        # }
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': os.environ.get("Database"),
+#         'USER': os.environ.get("User"),
+#         'PASSWORD': os.environ.get("Password"),
+#         'HOST':os.environ.get("Host"),
+#         'PORT': os.environ.get("Port"),
+#         # 'OPTIONS': {
+#         #     'sslmode': 'require'
+#         # }
+#     }
+# }
 
 EMAIL_BACKEND=os.environ.get("EMAIL_BACKEND")
 EMAIL_USE_TLS=os.environ.get("EMAIL_USE_TLS")
@@ -182,4 +179,5 @@ CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False
 
 prod_db  =  dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(prod_db)
+
 django_heroku.settings(locals())
